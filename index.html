@@ -11,8 +11,10 @@
   :root{
     --bg:#FBF6EC; --panel:#FFFEFA; --ink:#232A2E; --sub:#6B6459;
     --line: rgba(35,42,46,0.15); --accent:#2B3A36; --tag-bg:#EFE7D6; --gold:#9C8552;
+    --alarm:#C0392B;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:'Inter', system-ui, sans-serif;
@@ -71,14 +73,52 @@
   .cta{
     display:block; text-align:center; background:var(--accent); color:var(--bg); text-decoration:none;
     font-weight:600; font-size:17px; padding:16px 24px; border-radius:4px; margin-bottom:12px;
+    border:0; width:100%; font:inherit; cursor:pointer;
   }
   .cta:active{opacity:0.85;}
+  .cta[disabled]{opacity:.6; cursor:wait;}
   .guarantee{text-align:center; font-size:13px; color:var(--sub); margin-bottom:44px;}
+
+  /* ----- Order form ----- */
+  .order{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:24px 20px 22px; margin:0 0 40px; scroll-margin-top:16px;}
+  .order h3{font-family:'Source Serif 4', Georgia, serif; font-weight:700; font-size:22px; margin:0 0 6px; color:var(--ink);}
+  .order .lede{font-size:13.5px; color:var(--sub); margin:0 0 20px;}
+  .pack{display:grid; grid-template-columns:22px 1fr auto; gap:0 12px; align-items:start; padding:14px 15px; border:1.5px solid var(--line); border-radius:4px; background:var(--bg); cursor:pointer; position:relative; margin-bottom:12px;}
+  .pack input{position:absolute; opacity:0; width:1px; height:1px;}
+  .pack .dot{width:18px; height:18px; border:2px solid var(--sub); border-radius:50%; margin-top:1px;}
+  .pack input:checked + .dot{border-color:var(--accent); background:radial-gradient(var(--accent) 42%, transparent 48%);}
+  .pack input:focus-visible + .dot{outline:3px solid var(--gold); outline-offset:2px;}
+  .pack:has(input:checked){border-color:var(--accent); background:#fff;}
+  .pk-name{font-weight:600; font-size:15.5px; line-height:1.3; color:var(--ink);}
+  .pk-desc{display:block; font-size:12.5px; color:var(--sub); margin-top:3px; line-height:1.4;}
+  .pk-save{display:inline-block; font-size:11.5px; font-weight:600; color:var(--accent); background:var(--tag-bg); padding:2px 7px; border-radius:2px; margin-top:6px;}
+  .pk-price{text-align:right; font-family:'Source Serif 4', serif; font-weight:700; font-size:19px; line-height:1.1; white-space:nowrap; color:var(--ink);}
+  .pk-price s{display:block; font-family:'Inter', sans-serif; font-weight:400; font-size:12px; color:var(--sub); margin-top:3px;}
+  .badge{font-style:normal; position:absolute; top:-9px; right:12px; background:var(--gold); color:#fff; font-size:10.5px; font-weight:600; padding:3px 8px; border-radius:2px;}
+  .field{margin-top:14px;}
+  .field label{display:block; font-size:13px; font-weight:600; margin-bottom:5px; color:var(--ink);}
+  .field input, .field textarea{width:100%; font:inherit; font-size:15px; padding:12px 13px; border:1px solid rgba(35,42,46,.3); border-radius:4px; background:#fff; color:var(--ink);}
+  .field textarea{min-height:76px; resize:vertical;}
+  .field.bad input, .field.bad textarea{border-color:var(--alarm);}
+  .err{display:none; color:var(--alarm); font-size:12.5px; margin-top:4px;}
+  .field.bad .err{display:block;}
+  .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+  .total{display:flex; justify-content:space-between; align-items:baseline; margin:18px 0 12px; padding-top:14px; border-top:1px solid var(--line); font-size:14px; color:var(--sub);}
+  .total b{font-family:'Source Serif 4', serif; font-size:22px; color:var(--ink);}
+  .form-err{display:none; background:#FBEAE7; border:1px solid #E7B5AE; color:#8E2A1F; font-size:13.5px; padding:11px 13px; border-radius:4px; margin-top:13px; line-height:1.5;}
+  .assure{text-align:center; font-size:12.5px; color:var(--sub); margin:11px 0 0; line-height:1.6;}
+  .success{display:none; text-align:center; padding:10px 4px 4px;}
+  .success h3{font-family:'Source Serif 4', Georgia, serif; margin:0 0 8px; font-size:19px;}
+  .success p{font-size:14.5px; color:var(--sub); line-height:1.6; margin:0 0 8px;}
+  .tick{width:44px; height:44px; border-radius:50%; background:var(--accent); color:var(--bg); display:grid; place-items:center; margin:0 auto 14px;}
+
   .faq{border-top:1px solid var(--line); padding-top:24px;}
   .faq h4{font-size:13px; margin:0 0 14px; color:var(--sub); font-weight:600; letter-spacing:0.02em;}
   .faq-item{border-bottom:1px solid var(--line); padding:13px 0;}
   .faq-item p.q{font-weight:600; font-size:15px; margin:0 0 4px;}
   .faq-item p.a{font-size:14.5px; color:var(--sub); margin:0; line-height:1.55;}
+
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
 </style>
 </head>
 <body>
@@ -149,22 +189,106 @@
     <span class="old-price">Rs 1,500</span>
     <span class="new-price">Rs 1,200</span>
   </div>
-  <a class="cta" href="https://swas.site/?utm_source=facebook&amp;utm_medium=paid_social&amp;utm_campaign=swas_launch&amp;utm_content=angle2_relationship#swas-package-wrapper">Get My SWAS Patch — Order Now</a>
+  <a class="cta" href="#order">Get My SWAS Patch — Order Now</a>
   <p class="guarantee">Free Cash on Delivery &middot; 30-Day Money-Back Guarantee</p>
+
+  <!-- Order -->
+  <div class="order" id="order">
+    <form id="orderForm" novalidate>
+      <h3>Choose your pack</h3>
+      <p class="lede">Free delivery across Nepal. Pay cash when it arrives.</p>
+
+      <label class="pack">
+        <input type="radio" name="pack" value="Starter Pack (1 box)" data-price="1200" >
+        <span class="dot"></span>
+        <span>
+          <span class="pk-name">Starter Pack</span>
+          <span class="pk-desc">1 box &middot; 30 patches &middot; 1 month</span>
+          <span class="pk-save">Save Rs 300</span>
+        </span>
+        <span class="pk-price">Rs 1,200<s>Rs 1,500</s></span>
+      </label>
+
+      <label class="pack">
+        <em class="badge">Most popular</em>
+        <input type="radio" name="pack" value="Value Pack (2 boxes)" data-price="1900" checked>
+        <span class="dot"></span>
+        <span>
+          <span class="pk-name">Value Pack</span>
+          <span class="pk-desc">2 boxes &middot; 60 patches &middot; 2 months<br>Rs 950 per box</span>
+          <span class="pk-save">Save Rs 1,100</span>
+        </span>
+        <span class="pk-price">Rs 1,900<s>Rs 3,000</s></span>
+      </label>
+
+      <label class="pack">
+        <input type="radio" name="pack" value="Complete Pack (3 boxes)" data-price="2400">
+        <span class="dot"></span>
+        <span>
+          <span class="pk-name">Complete Pack</span>
+          <span class="pk-desc">3 boxes &middot; 90 patches &middot; 3 months<br>Rs 800 per box</span>
+          <span class="pk-save">Save Rs 2,100</span>
+        </span>
+        <span class="pk-price">Rs 2,400<s>Rs 4,500</s></span>
+      </label>
+
+      <div class="field" id="f-name">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name">
+        <div class="err">Please enter your name.</div>
+      </div>
+      <div class="field" id="f-phone">
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="98XXXXXXXX">
+        <div class="err">Please enter a 10-digit Nepali mobile number.</div>
+      </div>
+      <div class="field" id="f-address">
+        <label for="address">Delivery address</label>
+        <textarea id="address" name="address" autocomplete="street-address" placeholder="City, area, street, landmark"></textarea>
+        <div class="err">Please enter your delivery address.</div>
+      </div>
+
+      <div class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="total"><span>Total, pay on delivery</span><b id="total">Rs 1,200</b></div>
+      <button class="cta" type="submit" id="submitBtn">Place my order</button>
+      <div class="form-err" id="formErr" role="alert"></div>
+      <p class="assure">Free Cash on Delivery &middot; 30-Day Money-Back Guarantee<br>Delivery in 2&ndash;3 business days</p>
+    </form>
+
+    <div class="success" id="success" role="status">
+      <div class="tick"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+      <h3>Thank you. Your order is in.</h3>
+      <p id="successMsg"></p>
+      <p>Questions? Call <a href="tel:9740265823">9740265823</a>.</p>
+    </div>
+  </div>
 
   <div class="faq">
     <h4>A few questions people ask</h4>
     <div class="faq-item">
-      <p class="q">Will my partner even notice I'm wearing it?</p>
-      <p class="a">It's a slim, low-profile strip — most partners barely notice it in the dark. What they do notice is the quieter breathing.</p>
+      <p class="q">Does snoring mean I have sleep apnea?</p>
+      <p class="a">Not always. Many people snore without having it, but loud nightly snoring is one of its common signs. This page is general information, not a diagnosis — if you have ongoing sleep or breathing concerns, please see a doctor.</p>
     </div>
     <div class="faq-item">
       <p class="q">Will it feel like I can't open my mouth?</p>
       <p class="a">No. It keeps the lips gently together but you can still open your mouth if you need to — it's not a tight seal.</p>
     </div>
     <div class="faq-item">
+      <p class="q">Is it safe to use every night?</p>
+      <p class="a">The adhesive is hypoallergenic and latex-free, and is designed for nightly use. Each patch is single-use. If your skin feels irritated, stop using it.</p>
+    </div>
+    <div class="faq-item">
       <p class="q">How soon will I notice a difference?</p>
-      <p class="a">Many couples notice quieter nights from the very first use. Fuller improvement usually builds over 1–2 weeks.</p>
+      <p class="a">Some people notice quieter, calmer breathing from the first night. Fuller improvement usually builds over 1–2 weeks.</p>
+    </div>
+    <div class="faq-item">
+      <p class="q">How does ordering and payment work?</p>
+      <p class="a">Choose your pack above and fill in your details. We deliver in 2–3 business days anywhere in Nepal, and you pay cash when the parcel arrives.</p>
+    </div>
+    <div class="faq-item">
+      <p class="q">What if it doesn't work for me?</p>
+      <p class="a">You're covered by our 30-day money-back guarantee. Call 9740265823 or email patchswas@gmail.com.</p>
     </div>
   </div>
 
@@ -174,5 +298,106 @@
   </footer>
 
 </div>
+
+<script>
+/* =====================  SETTINGS  ===================== */
+var SHEET_ENDPOINT = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE'; // this page's own Google Sheet order endpoint
+var PIXEL_ID = '';                                              // Meta Pixel ID (optional)
+/* ===================================================== */
+
+/* ---------- Meta Pixel ---------- */
+(function(){
+  if (!PIXEL_ID) { window.fbq = function(){}; return; }
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID); fbq('track', 'PageView'); fbq('track', 'ViewContent', {content_name:'SWAS Mouth Patch', currency:'NPR', value:1200});
+})();
+
+/* ---------- Order form ---------- */
+(function(){
+  var form = document.getElementById('orderForm');
+  var totalEl = document.getElementById('total');
+  var btn = document.getElementById('submitBtn');
+  var formErr = document.getElementById('formErr');
+  var started = false;
+  function money(n){ return 'Rs ' + n.toLocaleString('en-US'); }
+  function selected(){ return form.querySelector('input[name="pack"]:checked'); }
+  function updateTotal(){ totalEl.textContent = money(parseInt(selected().getAttribute('data-price'), 10)); }
+  form.addEventListener('change', function(e){ if (e.target.name === 'pack') updateTotal(); });
+  form.addEventListener('focusin', function(){ if (!started){ started = true; fbq('track', 'InitiateCheckout'); } });
+  updateTotal();
+
+  function setBad(id, bad){ document.getElementById(id).classList.toggle('bad', bad); }
+  function cleanPhone(v){
+    var d = (v || '').replace(/\D/g, '');
+    if (d.length === 13 && d.indexOf('977') === 0) d = d.slice(3);
+    return d;
+  }
+  ['name','phone','address'].forEach(function(k){
+    document.getElementById(k).addEventListener('input', function(){ setBad('f-' + k, false); });
+  });
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    formErr.style.display = 'none';
+    var name = form.name.value.trim();
+    var phone = cleanPhone(form.phone.value);
+    var address = form.address.value.trim();
+    var okName = name.length >= 2, okPhone = /^9\d{9}$/.test(phone), okAddr = address.length >= 6;
+    setBad('f-name', !okName); setBad('f-phone', !okPhone); setBad('f-address', !okAddr);
+    if (!(okName && okPhone && okAddr)){
+      var first = form.querySelector('.field.bad input, .field.bad textarea'); if (first) first.focus();
+      return;
+    }
+    var pack = selected();
+    var price = parseInt(pack.getAttribute('data-price'), 10);
+
+    // bots fill the hidden field: pretend it worked, send nothing
+    if (form.company.value){ showSuccess(pack.value, phone); return; }
+
+    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.indexOf('PASTE_') === 0){
+      formErr.textContent = 'The order form is not connected to your Google Sheet yet. Add your Apps Script link in the page settings.';
+      formErr.style.display = 'block'; return;
+    }
+
+    var q = new URLSearchParams(window.location.search);
+    var fd = new FormData();
+    fd.append('name', name);
+    fd.append('phone', phone);
+    fd.append('address', address);
+    fd.append('pack', pack.value);
+    fd.append('price', String(price));
+    fd.append('utm_source', q.get('utm_source') || '');
+    fd.append('utm_medium', q.get('utm_medium') || '');
+    fd.append('utm_campaign', q.get('utm_campaign') || '');
+    fd.append('utm_content', q.get('utm_content') || '');
+    fd.append('page', window.location.href.split('?')[0]);
+
+    btn.disabled = true; btn.textContent = 'Placing your order…';
+
+    /* keepalive:true lets this request survive even if the visitor closes
+       the tab right after tapping submit. mode:'no-cors' still means this
+       .then() firing only confirms the browser sent the request, never
+       that Code.gs actually wrote a row to the Sheet — that can only be
+       confirmed in Apps Script's own Executions log. */
+    fetch(SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, body: fd })
+      .then(function(){
+        fbq('track', 'Purchase', { value: price, currency: 'NPR', content_name: pack.value });
+        showSuccess(pack.value, phone);
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = 'Place my order';
+        formErr.textContent = "We couldn't send your order. Please check your internet and try again, or call 9740265823.";
+        formErr.style.display = 'block';
+      });
+  });
+
+  function showSuccess(packName, phone){
+    form.style.display = 'none';
+    document.getElementById('successMsg').textContent = 'We received your order for the ' + packName + '. We will contact you on ' + phone + ' to confirm delivery. You pay cash when it arrives.';
+    document.getElementById('success').style.display = 'block';
+    document.getElementById('order').scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+})();
+</script>
 
 </body></html>
