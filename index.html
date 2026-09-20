@@ -81,6 +81,8 @@
 
   /* ----- Order form ----- */
   .order{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:24px 20px 22px; margin:0 0 40px; scroll-margin-top:16px;}
+  .banner{margin:0 0 18px; text-align:center;}
+  .banner img{width:100%; max-width:220px; margin:0 auto; border-radius:6px; border:1px solid var(--line);}
   .order h3{font-family:'Source Serif 4', Georgia, serif; font-weight:700; font-size:22px; margin:0 0 6px; color:var(--ink);}
   .order .lede{font-size:13.5px; color:var(--sub); margin:0 0 20px;}
   .pack{display:grid; grid-template-columns:22px 1fr auto; gap:0 12px; align-items:start; padding:14px 15px; border:1.5px solid var(--line); border-radius:4px; background:var(--bg); cursor:pointer; position:relative; margin-bottom:12px;}
@@ -194,12 +196,14 @@
 
   <!-- Order -->
   <div class="order" id="order">
+    <figure class="banner"><img src="Images/product-banner.jpg" alt="SWAS Mouth Patch box with individual patches" width="800" height="489"></figure>
+
     <form id="orderForm" novalidate>
       <h3>Choose your pack</h3>
       <p class="lede">Free delivery across Nepal. Pay cash when it arrives.</p>
 
       <label class="pack">
-        <input type="radio" name="pack" value="Starter Pack (1 box)" data-price="1200" >
+        <input type="radio" name="pack" value="Starter Pack (1 box)" data-price="1200">
         <span class="dot"></span>
         <span>
           <span class="pk-name">Starter Pack</span>
@@ -250,7 +254,7 @@
 
       <div class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
 
-      <div class="total"><span>Total, pay on delivery</span><b id="total">Rs 1,200</b></div>
+      <div class="total"><span>Total, pay on delivery</span><b id="total">Rs 1,900</b></div>
       <button class="cta" type="submit" id="submitBtn">Place my order</button>
       <div class="form-err" id="formErr" role="alert"></div>
       <p class="assure">Free Cash on Delivery &middot; 30-Day Money-Back Guarantee<br>Delivery in 2&ndash;3 business days</p>
